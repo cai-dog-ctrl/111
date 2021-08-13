@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="pages/css/login.css">
+    <style>
+        body {
+            /* 首先增加背景图 */
+            /*background-size: 100% auto; /* 设置背景的大小 */
+            /* 将背景设置为不重复显示 */
+            background: url("pages/img/login.jpg")  center;
+        }
+
+    </style>
+    <script>
+        if("{{.}}"=="用户名或密码不正确！"){
+            //设置span标签中的文本值
+            $("#msg").text("用户名或密码不正确！");
+        }
+    </script>
+</head>
+<body>
+<div class="box">
+    <h2>Login</h2>
+    <span class="errorMsg" id="msg" style="color: white">请输入用户名和密码</span>
+    <form action="/login" method="post">
+        <div class="inputbox">
+            <input type="text" name="UserName" id="UserName">
+            <label >Username</label>
+        </div>
+        <div class="inputbox">
+            <input type="password" name="Password" id="Password">
+            <label >password</label>
+        </div>
+        <input type="submit" class="sub"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="color: #409eff" href="/toReg">Register</a>
+    </form>
+</div>
+
+</body>
+</html>

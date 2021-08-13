@@ -1,0 +1,165 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>resize</title>
+  <style>
+    td {
+      height: 50px;
+      font-size: 18px;
+      white-space:nowrap;overflow:hidden;text-overflow: ellipsis;
+    }
+  .budong{
+    position: absolute;
+  }
+    .page{
+      position: relative;
+      top: 610px;
+    }
+  </style>
+  <script src="pages/js/jquery-1.7.2.js"></script>
+</head>
+
+<body>
+
+<div style="margin-left: 80px">
+  <a href="/toChaKan"><img src="pages/img/提交0.jpg"></a>
+  <a href="/main"><img src="pages/img/查看0.jpg"></a>
+  <a href="/chooseManger"><img src="pages/img/管理.jpg"></a>
+</div>
+<hr>
+<div style="width: 430px;height: 800px;border: black 2px solid;float: right;background-color: #99a9bf;display: none" id="DisPlay" contenteditable="true">
+  <div style="font-style: oblique;margin-left: 12px"> 1> 姓名</div>
+  <p id="Name" style="margin-left: 15px">{{.}}</p>
+  <div style="font-style:oblique;margin-left: 12px"> 2> 完成</div>
+  <p id="Content" style="margin-left: 15px">{{.}}</p>
+  <div style="font-style:oblique;margin-left: 12px"> 3> 计划</div>
+  <p id="Plan" style="margin-left: 15px">{{.}}</p>
+  <div style="font-style:oblique;margin-left: 12px"> 4> 总结</div>
+  <p id="Summary" style="margin-left: 15px">{{.}}</p>
+  <div style="font-style:oblique;margin-left: 12px"> 5> 算法</div>
+  <p ><a href="{{.}}" id="Algorithm" style="margin-left: 15px">{{.}}</a></p>
+  <div style="font-style: oblique;margin-left: 12px" > 6> 时间</div>
+  <p id="Time" style="margin-left: 15px">{{.}}</p>
+</div>
+<div style="float: left;width: 200px;height: 800px;border: #99a9bf 1px solid">
+<div style="text-align: center"> <img src="pages/img/头像.jpg" style=" border-radius: 50%; overflow: hidden; width: 150px; "></div>
+  <hr><br><br>
+  <div style="text-align: center">
+    <a href="/toUserInformation?UserName={{.UserName}}&GroupName={{.GroupName}}"> <button style="width: 200px;height: 50px;font-size: 30px;border: white;background-color: white;font-family: MingLiU-ExtB,serif" >个人报告</button></a>
+  </div>
+  <br><br>
+  <div style="text-align: center">
+    <a href="/toUpdateUser?UserName={{.UserName}}"><button style="width: 200px;height: 50px;font-size: 30px;border: white;background-color: white;font-family: MingLiU-ExtB,serif">个人信息修改</button></a>
+  </div><br><br>
+  <div style="text-align: center">
+    <a href="/deleteFromGroup?UserName={{.UserName}}&GroupName={{.GroupName}}"><button style="width: 200px;height: 50px;font-size: 30px;border: white;background-color: white;font-family: MingLiU-ExtB,serif">踢出小组</button></a>
+  </div>
+</div>
+<div style="text-align: center;font-size: 40px">{{.UserName}}的报告</div>
+<br><br><br>
+
+
+
+<div class="budong" style="width: 1200px;height: 600px;margin-left: 260px;border: #DDE0E7 1px solid">
+  <table style="margin: 0 auto;width: 1200px;table-layout: fixed;">
+    <tr>
+      <th>日期</th>
+      <th>姓名</th>
+      <th>今日完成</th>
+      <th>明日计划</th>
+      <th>总结</th>
+      <th>算法</th>
+      <th>删除</th>
+      <th>修改</th>
+    </tr>
+    {{range .Page.Reports}}
+    <tr id="_1" >
+      <td style="text-align: center;color: #606266" class="Con">{{.Time}}</td>
+      <td style="text-align: center;width: 141px;color: #606266" class="Con">{{.UserName}}</td>
+      <td style="text-align: center;width: 200px;color: #606266" class="Con">{{.Content}}</td>
+      <td style="text-align: center;width: 196px;color: #606266" class="Con">{{.Plan}}</td>
+      <td style="text-align: center;width: 195px;color: #606266" class="Con">{{.Summary}}</td>
+      <td style="text-align: center;width: 195px;color: #606266" class="Con">{{.Algorithm}}</td>
+      <td style="text-align: center" class="Con"><a href="/deleteReport?ID={{.ID}}"><button style="width: 80px;height: 35px;border-radius: 5px">删除</button></a></td>
+      <td style="text-align: center" class="Con"> <a href="/toUpdateReportByManger?ID={{.ID}}"><button style="width: 80px;height: 35px;border-radius: 5px">修改</button></a></td>
+    </tr>
+    {{end}}
+  </table>
+</div>
+<div class="page" align="center" style="font-size: 20px;margin-bottom: 5px">
+  <a href="/toUserInformation?UserName={{.Page.UserName}}&GroupName={{.GroupName}}">首页</a>
+  <a href="/toUserInformation?PageNo={{.Page.GetPrevPage}}&UserName={{.UserName}}&GroupName={{.GroupName}}">上一页</a>
+  当前是第{{.Page.PageNo}}页，共{{.Page.TotalPageNo}}页，共{{.Page.TotalRecord}}条记录
+  <a href="/toUserInformation?PageNo={{.Page.GetNextPage}}&UserName={{.UserName}}&GroupName={{.GroupName}}">下一页</a>
+  <a href="/toUserInformation?PageNo={{.Page.TotalPageNo}}&UserName={{.UserName}}&GroupName={{.GroupName}}">末页</a>
+</div>
+</body>
+<script>
+  window.onload = function(){          //加载页面设置属性
+    var tab=document.getElementsByTagName("tr");
+    for(var k=1;k<tab.length;k++) //用for循环来给每一行元素响应事件
+    {
+      changeBgColor(tab[k]);
+    }
+    var But=document.getElementsByTagName("button")
+    for(var i=0;i<But.length;i++) //用for循环来给每一行元素响应事件
+    {
+      changeBgColor2(But[i]);
+    }
+    var Con=document.getElementsByClassName("Con")
+    for(var i=0;i<Con.length;i++){
+      Con[i].onclick=getA;
+    }
+  }
+  function showsHidden(obj){
+    if(obj.style.display=="block"){
+      obj.style.display="none";
+    }else{
+      obj.style.display="block";
+    }
+  }
+  function getA(){
+    var Dis=document.getElementById("DisPlay");
+    Dis.style.zIndex="9";
+    Dis.style.position="relative";
+    var div=this.parentNode;
+    var Time=div.getElementsByClassName("Con")[0].innerHTML;
+    var Name=div.getElementsByClassName("Con")[1].innerHTML;
+    var Content=div.getElementsByClassName("Con")[2].innerHTML;
+    var Plan=div.getElementsByClassName("Con")[3].innerHTML;
+    var Summary=div.getElementsByClassName("Con")[4].innerHTML;
+    var Algorithm=div.getElementsByClassName("Con")[5].innerHTML;
+    var Time1=document.getElementById("Time");
+    var Name1=document.getElementById("Name");
+    var Content1=document.getElementById("Content");
+    var Plan1=document.getElementById("Plan");
+    var Summary1=document.getElementById("Summary");
+    var Algorithm1=document.getElementById("Algorithm");
+    Name1.innerHTML=Name;
+    Time1.innerHTML=Time;
+    Content1.innerHTML=Content;
+    Plan1.innerHTML=Plan;
+    Summary1.innerHTML=Summary;
+    Algorithm1.innerHTML=Algorithm;
+    showsHidden(Dis);
+    return false;
+  }
+  function changeBgColor(object){
+    object.onmouseover=function(){
+      object.style.backgroundColor="#ECF5FF";
+    }
+    object.onmouseout=function(){
+      object.style.backgroundColor="#fff";     //原来的背景色为白色
+    }
+  }
+  function changeBgColor2(object){
+    object.onmouseover=function(){
+      object.style.backgroundColor="#ECF5FF";
+    }
+    object.onmouseout=function(){
+      object.style.backgroundColor="#fff";     //原来的背景色为白色
+    }
+  }
+
+</script>
+</html>

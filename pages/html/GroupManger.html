@@ -1,0 +1,203 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>resize</title>
+    <style>
+        td {
+            height: 50px;
+            font-size: 18px;
+            white-space:nowrap;overflow:hidden;text-overflow: ellipsis;
+        }
+        .budong{
+            position: absolute;
+        }
+        .page{
+            position: relative;
+            top: 610px;
+        }
+    </style>
+    <script src="pages/js/jquery-1.7.2.js"></script>
+</head>
+<body>
+<div style="height: 800px;width: 300px;float: right;border: black 1px solid;display: none" >
+    <div>
+        姓名：
+    </div>
+</div>
+<div style="margin-left: 80px">
+    <a href="/toChaKan"><img src="pages/img/提交0.jpg"></a>
+    <a href="/main"><img src="pages/img/查看0.jpg"></a>
+    <a href="/chooseManger"><img src="pages/img/管理.jpg"></a>
+</div>
+<hr>
+<div style="width: 430px;height: 800px;border: black 2px solid;float: right;background-color: #99a9bf;display: none" id="DisPlay" contenteditable="true">
+    <div style="font-style: oblique;margin-left: 12px"> 1> 姓名</div>
+    <p id="Name" style="margin-left: 15px">{{.}}</p>
+    <div style="font-style:oblique;margin-left: 12px"> 2> 完成</div>
+    <p id="Content" style="margin-left: 15px">{{.}}</p>
+    <div style="font-style:oblique;margin-left: 12px"> 3> 计划</div>
+    <p id="Plan" style="margin-left: 15px">{{.}}</p>
+    <div style="font-style:oblique;margin-left: 12px"> 4> 总结</div>
+    <p id="Summary" style="margin-left: 15px">{{.}}</p>
+    <div style="font-style:oblique;margin-left: 12px"> 5> 算法</div>
+    <p ><a href="{{.}}" id="Algorithm" style="margin-left: 15px">{{.}}</a></p>
+    <div style="font-style: oblique;margin-left: 12px" > 6> 时间</div>
+    <p id="Time" style="margin-left: 15px">{{.}}</p>
+</div>
+<div><form action="/mangerGroup?PageNo={{.Page.PageNo}}&InvitationCode={{.InvitationCode}}&Sub={{.GroupName}}" method="post">
+    <div style="margin-left: 170px;float: left;color:#3C3F41"><label style="font-size: 18px;font-family: MingLiU-ExtB,serif ">日期：</label><input type="date" style="border:solid#DDE0E7 1px;border-radius: 5px;width: 180px;height: 35px" placeholder="请选择日期" name="Time"> </div>
+    <div style="float: left;margin-left: 170px;color: #3C3F41"> <label style="font-size: 18px;font-family: MingLiU-ExtB,serif"> 姓名：</label><input type="text" style="border:solid#DDE0E7 1px;border-radius: 5px;width: 180px;height: 35px" placeholder="请输入姓名" name="UserName"></div>
+    <div style="float: left;margin-left: 170px;color: #3C3F41"> <label style="font-size: 18px;font-family: MingLiU-ExtB,serif"></label><input type="submit" style="border:solid#DDE0E7 1px;border-radius: 10px;width: 180px;height: 35px" value="查找"></div>
+</form>
+</div>
+<br><br><br>
+<div  style="text-align: center;font-size: 30px"> 本组报告</div>
+<div style="text-align: center">本组邀请码是：{{.InvitationCode}}</div>
+<br><br>
+<div>
+    <div style="float: left;margin-left: 100px;width: 150px;height: 600px;border: #DDE0E7 1px solid">
+        <span style="margin-left: 35px"> 今日未提交 </span>
+        <table>
+            {{range.NoSubmitUser}}
+            <tr class="ooo" id="{{.}}">
+                <td style="width:150px ;text-align: center" >{{.}}</td>
+            </tr>
+            {{end}}
+        </table>
+        <span style="margin-left: 35px" > 今日已提交 </span>
+        <table>
+            {{range .SubmitUser}}
+            <tr class="kkk" id="{{.}}">
+                <td style="width:150px ;text-align: center" >{{.}}</td>
+            </tr>
+            {{end}}
+        </table>
+    </div>
+<div class="budong" style="width: 1000px;height: 600px;margin-left: 250px;border: #DDE0E7 1px solid">
+    <table style="margin: 0 auto;width: 1000px;table-layout: fixed;">
+        <tr>
+            <th>日期</th>
+            <th>姓名</th>
+            <th>今日完成</th>
+            <th>明日计划</th>
+            <th>总结</th>
+            <th>算法</th>
+            <th>修改</th>
+            <th>删除</th>
+        </tr>
+        {{range .Page.Reports}}
+        <tr id="_1" class="hhh">
+            <td style="text-align: center;color: #606266" class="Con">{{.Time}}</td>
+            <td style="text-align: center;width: 141px;color: #606266" class="Con">{{.UserName}}</td>
+            <td style="text-align: center;width: 200px;color: #606266" class="Con">{{.Content}}</td>
+            <td style="text-align: center;width: 196px;color: #606266" class="Con">{{.Plan}}</td>
+            <td style="text-align: center;width: 195px;color: #606266" class="Con"> {{.Summary}}</td>
+            <td style="text-align: center;width: 195px;color: #606266" class="Con">{{.Algorithm}}</td>
+            <td style="text-align: center;"><a href="/toUpdateReportByManger?ID={{.ID}}"><button style="width: 100px;height: 30px;border-radius: 5px" id="{{.ID}}">修改</button></a></td>
+            <td style="text-align: center;"><a href="/deleteReport?ID={{.ID}}"><button style="width: 100px;height: 30px;border-radius: 5px" id="{{.ID}}">删除</button></a></td>
+        </tr>
+        {{end}}
+    </table>
+</div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="page" align="center" style="font-size: 20px;margin-bottom: 5px">
+    <a href="/mangerGroup?UserName={{.Page.UserName}}&Time={{.Page.Time}}&Sub={{.GroupName}}&InvitationCode={{.InvitationCode}}">首页</a>
+    <a href="/mangerGroup?PageNo={{.Page.GetPrevPage}}&UserName={{.Page.UserName}}&Time={{.Page.Time}}&Sub={{.GroupName}}&InvitationCode={{.InvitationCode}}">上一页</a>
+    当前是第{{.Page.PageNo}}页，共{{.Page.TotalPageNo}}页，共{{.Page.TotalRecord}}条记录
+    <a href="/mangerGroup?PageNo={{.Page.GetNextPage}}&UserName={{.Page.UserName}}&Time={{.Page.Time}}&Sub={{.GroupName}}&InvitationCode={{.InvitationCode}}">下一页</a>
+    <a href="/mangerGroup?PageNo={{.Page.TotalPageNo}}&UserName={{.Page.UserName}}&Time={{.Page.Time}}&Sub={{.GroupName}}&InvitationCode={{.InvitationCode}}">末页</a>
+</div>
+</body>
+<script>
+    window.onload = function(){          //加载页面设置属性
+        var tab=document.getElementsByClassName("hhh")
+        for(var i=0;i<tab.length;i++) //用for循环来给每一行元素响应事件
+        {
+            changeBgColor(tab[i]);
+        }
+        var tab2=document.getElementsByClassName("ooo")
+        for(var i=0;i<tab2.length;i++) //用for循环来给每一行元素响应事件
+        {
+            changeBgColor2(tab2[i]);
+        }
+        var tab3=document.getElementsByClassName("kkk")
+        for(var i=0;i<tab3.length;i++) //用for循环来给每一行元素响应事件
+        {
+            changeBgColor3(tab3[i]);
+        }
+        var Con=document.getElementsByClassName("Con")
+        for(var i=0;i<Con.length;i++){
+            Con[i].onclick=getA;
+        }
+    }
+    function showsHidden(obj){
+        if(obj.style.display=="block"){
+            obj.style.display="none";
+        }else{
+            obj.style.display="block";
+        }
+    }
+    function getA(){
+        var Dis=document.getElementById("DisPlay");
+        Dis.style.zIndex="9";
+        Dis.style.position="relative";
+        var div=this.parentNode;
+        var Time=div.getElementsByClassName("Con")[0].innerHTML;
+        var Name=div.getElementsByClassName("Con")[1].innerHTML;
+        var Content=div.getElementsByClassName("Con")[2].innerHTML;
+        var Plan=div.getElementsByClassName("Con")[3].innerHTML;
+        var Summary=div.getElementsByClassName("Con")[4].innerHTML;
+        var Algorithm=div.getElementsByClassName("Con")[5].innerHTML;
+        var Time1=document.getElementById("Time");
+        var Name1=document.getElementById("Name");
+        var Content1=document.getElementById("Content");
+        var Plan1=document.getElementById("Plan");
+        var Summary1=document.getElementById("Summary");
+        var Algorithm1=document.getElementById("Algorithm");
+        Name1.innerHTML=Name;
+        Time1.innerHTML=Time;
+        Content1.innerHTML=Content;
+        Plan1.innerHTML=Plan;
+        Summary1.innerHTML=Summary;
+        Algorithm1.innerHTML=Algorithm;
+        showsHidden(Dis);
+        return false;
+    }
+    function changeBgColor(object){
+        object.onmouseover=function(){
+            object.style.backgroundColor="#ECF5FF";
+        }
+        object.onmouseout=function(){
+            object.style.backgroundColor="#fff";     //原来的背景色为白色
+        }
+
+    }
+
+    function changeBgColor2(object){
+        var ID=object.id
+        object.onmouseover=function(){
+            object.style.backgroundColor="#FF3A45";
+        }
+        object.onmouseout=function(){
+            object.style.backgroundColor="#fff";     //原来的背景色为白色
+        }
+        object.onclick=function (){
+            location.href="/toUserInformation?UserName="+ID+"&GroupName={{.GroupName}}"
+        }
+    }
+    function changeBgColor3(object){
+        var ID=object.id
+        object.onmouseover=function(){
+            object.style.backgroundColor="#ECF5FF";
+        }
+        object.onmouseout=function(){
+            object.style.backgroundColor="#fff";     //原来的背景色为白色
+        }
+        object.onclick=function (){
+            location.href="/toUserInformation?UserName="+ID+"&GroupName={{.GroupName}}"
+        }
+
+    }
+</script>
+</html>

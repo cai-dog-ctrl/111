@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+      <html lang="en">
+      <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+  <style>
+    input{
+      height: 35px;
+      border-radius: 5px;
+      font-size: 15px;
+      white-space:nowrap;overflow:hidden;text-overflow: ellipsis;
+    }
+  </style>
+</head>
+<script src="../js/jquery-1.7.2.js"></script>
+<body>
+<div style="margin-left: 80px">
+  <a href="/toChaKan"><img src="pages/img/提交0.jpg"></a>
+  <a href="/main"><img src="pages/img/查看0.jpg"></a>
+  <a href="/chooseManger"><img src="pages/img/管理.jpg"></a>
+</div>
+<hr>
+
+<div style="text-align: center;font-size: 50px">我的报告</div>
+<form action="/UpdateUser" method="post">
+  <table style="margin:0px auto;width: 1100px;">
+    <tr>
+      <th>姓名</th>
+      <th>密码</th>
+      <th>是否可登录</th>
+      <th>修改</th>
+    </tr>
+    <tr  >
+      <input id="ID" value="{{.ID}}" type="hidden" name="ID">
+      <td style="text-align: center"><input id="UserName" type="text" name="UserName" value="{{.UserName}}"></td>
+      <td style="text-align: center"><input id="Content" type="text" name="Password" value="{{.Password}}"></td>
+      <td style="text-align: center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="IsLogin" value="1">可以&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="IsLogin" value="0">不可以</td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="Sub" style="border-radius: 5px;border: #606266 1px;width: 120px;height: 30px;background-color: #ECF5FF;text-align: center"><br></td>
+    </tr>
+  </table>
+</form>
+</body>
+<script>
+  var sub=document.getElementById("Sub")
+  sub.onmouseover=function (){
+    sub.style.backgroundColor="#606266"
+  }
+  sub.onmouseout=function (){
+    sub.style.backgroundColor="#ECF5FF"
+  }
+  sub.onclick=function (){
+    var UserName=$("#UserName").val()
+    var Plan=$("#Plan").val()
+    var Content=$("#Content").val()
+    var Summary=$("#Summary").val()
+    var Algorithm=$("#Algorithm").val()
+    if (UserName==""||Plan==""||Content==""||Summary==""||Algorithm=="")
+    {
+      alert("输入不能为空")
+      return false
+    }
+  }
+
+
+</script>
+</html></title>
+</head>
+<body>
+
+</body>
+</html>

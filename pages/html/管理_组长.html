@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    input{
+      font-size: 18px;
+      font-family: MingLiU-ExtB,serif;
+    }
+    option,select{
+      font-size: 18px;
+      font-family: MingLiU-ExtB,serif;
+    }
+  </style>
+  <script src="../js/jquery-1.7.2.js"></script>
+</head>
+<body>
+<div style="margin-left: 80px">
+  <a href="/toChaKan"><img src="pages/img/提交0.jpg"></a>
+  <a href="/main"><img src="pages/img/查看0.jpg"></a>
+  <a href="/chooseManger"><img src="pages/img/管理.jpg"></a>
+</div>
+<hr>
+<br><br><br><div style="float: right;margin-right: 100px">
+  <a href="/logout"><button style="width: 100px;height: 30px;border-radius: 5px"> 点我注销</button></a>
+</div><br><br><br>
+<div style="text-align: center;font-size: 50px">我管理的小组</div>
+<div style="text-align: center">
+  <form id="GroupID" action="/mangerGroup" method="post">
+  <select style="width: 300px;height: 60px;border: black 2px solid;border-radius: 10px" id="Sel" onchange="submitForm();" name="Sub">
+    <option value="">请选择组</option>
+    {{range .}}
+    <option value="{{.GroupName}}">{{.GroupName}}</option>
+    {{end}}
+  </select>
+  </form>
+</div>
+<br><br><br><hr><br><br><br>
+<div style="text-align: center;">
+  <form action="/addGroup" method="post">
+    <input type="text" id="GroupName" name="GroupName" style="width: 300px;height: 60px;border: black 2px solid;border-radius: 10px" placeholder="取个组名吧">
+    <br><br><br>
+  <button style="width: 300px;height: 60px;border: black 2px solid;border-radius: 10px" id="Sub">点我新建小组</button>
+  </form>
+</div>
+</body>
+<script>
+  function submitForm(){
+    var form = document.getElementById("GroupID");
+    form.submit();
+
+  }
+</script>
+</html>

@@ -1,0 +1,68 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>resize</title>
+  <style>
+
+  </style>
+  <script src="../js/jquery-1.7.2.js"></script>
+<!--  <script src="/pages/script/jquery-1.7.2.js"></script>-->
+</head>
+<body>
+<div style="margin-left: 80px">
+  <a href="/toChaKan"><img src="pages/img/提交.jpg"></a>
+  <a href="/main"><img src="pages/img/查看0.jpg"></a>
+  <a href="/chooseManger"><img src="pages/img/管理0.jpg"></a>
+</div>
+<hr>
+<br>
+<div style="width: 1250px;height: 700px;border: 1px solid ;border-radius: 5px;margin-left: 140px;box-shadow: 0 0 10px 3px gray">
+  <div style="margin-left: 30px;font-size: 40px">日报</div>
+  <hr>
+  <form action="/subMitTask" method="post">
+  <div style="margin-left: 30px;font-family: MingLiU-ExtB,serif"> 姓名：<input  type="text"style="width: 1000px;height: 35px;border-radius: 5px;border:#DDE0E7 1px solid;padding-left: 25px;" placeholder="姓名" name="UserName" id="UserName"></div><br><br>
+  <div style="margin-left: 30px;font-family: MingLiU-ExtB,serif"> 完成：<input type="text"style="width: 1000px;height: 90px;border-radius: 5px;border:#DDE0E7 1px solid;padding-left: 25px;" placeholder="完成" name="Content" id="Content"></div><br><br>
+  <div style="margin-left: 30px;font-family: MingLiU-ExtB,serif"> 计划：<input type="text"style="width: 1000px;height: 90px;border-radius: 5px;border: #DDE0E7 1px solid;padding-left: 25px;" placeholder="计划" name="Plan" id="Plan"></div><br><br>
+  <div style="margin-left: 30px;font-family: MingLiU-ExtB,serif"> 总结：<input type="text"style="width: 1000px;height: 90px;border-radius: 5px;border:#DDE0E7 1px solid;padding-left: 25px;" placeholder="总结" name="Summary" id="Summary"></div><br><br>
+    <div style="margin-left: 30px;font-family: MingLiU-ExtB,serif"> 算法：<input type="text"style="width: 1000px;height: 90px;border-radius: 5px;border:#DDE0E7 1px solid;padding-left: 25px;" placeholder="算法" name="Algorithm" id="Algorithm"></div><br>
+  <div><input type="submit" value="提交" style="margin-left: 470px;width: 200px;height: 35px;background: #66B1FF;border: none;border-radius: 5px" id="Sub"></div>
+  </form>
+</div>
+</body>
+<script>
+  window.onload = function(){          //加载页面设置属性
+    var tab=document.getElementsByTagName("input");
+    for(var i=0;i<tab.length-1;i++) //用for循环来给每一行元素响应事件
+    {
+      changeBgColor(tab[i]);
+    }
+  }
+  function changeBgColor(object){
+    object.onmouseover=function(){
+      object.style.backgroundColor="#ECF5FF";
+      object.style.borderColor="#DDE0E7";
+    }
+    object.onmouseout=function(){
+      object.style.backgroundColor="#fff";
+      object.style.borderColor="#DDE0E7";//原来的背景色为白色
+    }
+    object.onmousedown=function (){
+
+    }
+  }
+  $(function (){
+    $("#Sub").click(function (){
+      var UserName=$("#UserName").val()
+      var Plan=$("#Plan").val()
+      var Content=$("#Content").val()
+      var Summary=$("#Summary").val()
+      var Algorithm=$("#Algorithm").val()
+      if (UserName==""||Plan==""||Content==""||Summary==""||Algorithm=="")
+      {
+        alert("输入不能为空")
+        return false
+      }
+    })
+  })
+</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="pages/css/login.css">
+  <style>
+    body {
+      /* 首先增加背景图 */
+      /*background-size: 100% auto; /* 设置背景的大小 */
+      /* 将背景设置为不重复显示 */
+      background: url("pages/img/login.jpg")  center;
+    }
+
+  </style>
+</head>
+<body>
+<div class="box">
+  <h2>Register</h2>
+  <form action="/regist" method="post">
+    <div class="inputbox">
+      <input type="text" name="UserName" id="username">
+      <label >Username</label>
+    </div>
+    <div class="inputbox">
+      <input type="password" name="Password" id="password">
+      <label >password</label>
+    </div>
+    <div class="inputbox">
+      <input type="password" name="" id="rePassword">
+      <label >rePassword</label>
+    </div>
+    <input type="submit" class="sub"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="color: #409eff" href="/toLogin">Login</a>
+  </form>
+</div>
+
+</body>
+</html>

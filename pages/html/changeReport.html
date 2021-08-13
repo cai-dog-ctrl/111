@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+      input{
+        height: 35px;
+        border-radius: 5px;
+        font-size: 15px;
+        white-space:nowrap;overflow:hidden;text-overflow: ellipsis;
+      }
+  </style>
+</head>
+<script src="../js/jquery-1.7.2.js"></script>
+<body>
+<div style="margin-left: 80px">
+  <a href="/toChaKan"><img src="pages/img/提交0.jpg"></a>
+  <a href="/main"><img src="pages/img/查看0.jpg"></a>
+  <a href="/chooseManger"><img src="pages/img/管理.jpg"></a>
+</div>
+<hr>
+
+<div style="text-align: center;font-size: 50px">我的报告</div>
+<form action="/changeReport" method="post">
+  <table style="margin:0px auto;width: 1100px;">
+    <tr>
+      <th>日期</th>
+      <th>姓名</th>
+      <th>今日完成</th>
+      <th>明日计划</th>
+      <th>总结</th>
+      <th>算法</th>
+      <th>操作(只能修改当日)</th>
+    </tr>
+    <tr  >
+      <input id="ID" value="{{.ID}}" type="hidden" name="ID">
+      <td style="text-align: center"><input id="Time" type="text" name="Time" value="{{.Time}}" ></td>
+      <td style="text-align: center"><input id="UserName" type="text" name="UserName" value="{{.UserName}}"></td>
+      <td style="text-align: center"><input id="Content" type="text" name="Content" value="{{.Content}}"></td>
+      <td style="text-align: center"><input id="Plan" type="text" name="Plan" value="{{.Plan}}"></td>
+      <td style="text-align: center"><input id="Summary" type="text" name="Summary" value="{{.Summary}}"></td>
+      <td style="text-align: center"><input id="Algorithm" type="text" name="Algorithm" value="{{.Algorithm}}"></td>
+      <td><input type="submit" id="Sub" style="border-radius: 5px;border: #606266 1px;width: 120px;height: 30px;background-color: #ECF5FF"><br></td>
+    </tr>
+  </table>
+</form>
+</body>
+<script>
+  var sub=document.getElementById("Sub")
+  sub.onmouseover=function (){
+    sub.style.backgroundColor="#606266"
+  }
+  sub.onmouseout=function (){
+    sub.style.backgroundColor="#ECF5FF"
+  }
+  sub.onclick=function (){
+    var UserName=$("#UserName").val()
+    var Plan=$("#Plan").val()
+    var Content=$("#Content").val()
+    var Summary=$("#Summary").val()
+    var Algorithm=$("#Algorithm").val()
+    if (UserName==""||Plan==""||Content==""||Summary==""||Algorithm=="")
+    {
+      alert("输入不能为空")
+      return false
+    }
+  }
+
+
+</script>
+</html>

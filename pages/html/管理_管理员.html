@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        td {
+            height: 50px;
+            font-size: 18px;
+            white-space:nowrap;overflow:hidden;text-overflow: ellipsis;
+        }
+        .budong{
+            position: absolute;
+        }
+        .page{
+            position: relative;
+            top: 610px;
+        }
+    </style>
+</head>
+<body>
+<div style="margin-left: 80px">
+    <a href="/toChaKan"><img src="pages/img/提交0.jpg"></a>
+    <a href="/main"><img src="pages/img/查看0.jpg"></a>
+    <a href="/chooseManger"><img src="pages/img/管理.jpg"></a>
+</div>
+<hr>
+<div style="font-size: 45px;font-family: 'Bodoni MT Condensed',serif;text-align: center"> 欢迎来到管理员界面</div>
+<a href="/logout"><button>注销</button></a>
+<br><br>
+<div style="float: right;width: 300px;height: 100px;border: #99a9bf 1px solid">
+    <form action="/addGroupLeaderOrManger" method="post">
+    <div style="text-align: center">UserName: <input type="text" name="UserName" placeholder="输入UserName" style="height: 150px;height: 20px;border-radius: 5px"><br></div>
+    <div style="text-align: center">Password: &nbsp;&nbsp;<input type="password" name="Password" placeholder="输入Password" style="height: 150px;height: 20px;border-radius: 5px"><br></div>
+    <div style="text-align: center"><input type="radio" name="Idf" value="1">管理员
+        <input type="radio" name="Idf" value="2">小组长</div>
+    <div style="text-align: center"><input type="submit" value="点我添加"></div>
+    </form>
+</div>
+<div>
+    <div style="float: left;margin-left: 100px;width: 150px;height: 600px;border: #DDE0E7 1px solid">
+        <span style="margin-left: 35px"> 今日未提交 </span>
+        <table>
+            {{range.NoSubmitUser}}
+            <tr class="ooo" id="{{.}}">
+                <td style="width:150px ;text-align: center" >{{.}}</td>
+            </tr>
+            {{end}}
+        </table>
+        <span style="margin-left: 35px" > 今日已提交 </span>
+        <table>
+            {{range .SubmitUser}}
+            <tr class="kkk" id="{{.}}">
+                <td style="width:150px ;text-align: center" >{{.}}</td>
+            </tr>
+            {{end}}
+        </table>
+    </div>
+    <div style="width: 1000px;height: 600px;float: left;border: #DDE0E7 1px solid">
+        <table style="margin: 0 auto;width: 1000px;table-layout: fixed;">
+            <tr>
+                <th>日期</th>
+                <th>姓名</th>
+                <th>今日完成</th>
+                <th>明日计划</th>
+                <th>总结</th>
+                <th>算法</th>
+                <th>修改</th>
+                <th>删除</th>
+            </tr>
+            {{range .Page.Reports}}
+            <tr id="_1" class="hhh">
+                <td style="text-align: center;color: #606266">{{.Time}}</td>
+                <td style="text-align: center;width: 141px;color: #606266">{{.UserName}}</td>
+                <td style="text-align: center;width: 200px;color: #606266">{{.Content}}</td>
+                <td style="text-align: center;width: 196px;color: #606266">{{.Plan}}</td>
+                <td style="text-align: center;width: 195px;color: #606266">{{.Summary}}</td>
+                <td style="text-align: center;width: 195px;color: #606266">{{.Algorithm}}</td>
+                <td style="text-align: center;"><a href="/toUpdateReportByManger?ID={{.ID}}"><button style="width: 100px;height: 30px;border-radius: 5px" id="{{.ID}}">修改</button></a></td>
+                <td style="text-align: center;"><a href="/deleteReport?ID={{.ID}}"><button style="width: 100px;height: 30px;border-radius: 5px" id="{{.ID}}">删除</button></a></td>
+            </tr>
+            {{end}}
+        </table>
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="page" align="center" style="font-size: 20px;margin-bottom: 5px">
+    <a href="/mangerGroup?UserName={{.Page.UserName}}&Time={{.Page.Time}}">首页</a>
+    <a href="/mangerGroup?PageNo={{.Page.GetPrevPage}}&UserName={{.Page.UserName}}&Time={{.Page.Time}}">上一页</a>
+    当前是第{{.Page.PageNo}}页，共{{.Page.TotalPageNo}}页，共{{.Page.TotalRecord}}条记录
+    <a href="/mangerGroup?PageNo={{.Page.GetNextPage}}&UserName={{.Page.UserName}}&Time={{.Page.Time}}">下一页</a>
+    <a href="/mangerGroup?PageNo={{.Page.TotalPageNo}}&UserName={{.Page.UserName}}&Time={{.Page.Time}}">末页</a>
+</div>
+</body>
+<script>
+    window.onload = function(){          //加载页面设置属性
+        var tab=document.getElementsByClassName("hhh")
+        for(var i=0;i<tab.length;i++) //用for循环来给每一行元素响应事件
+        {
+            changeBgColor(tab[i]);
+        }
+        var tab2=document.getElementsByClassName("ooo")
+        for(var i=0;i<tab2.length;i++) //用for循环来给每一行元素响应事件
+        {
+            changeBgColor2(tab2[i]);
+        }
+        var tab3=document.getElementsByClassName("kkk")
+        for(var i=0;i<tab3.length;i++) //用for循环来给每一行元素响应事件
+        {
+            changeBgColor3(tab3[i]);
+        }
+    }
+    function changeBgColor(object){
+        object.onmouseover=function(){
+            object.style.backgroundColor="#ECF5FF";
+        }
+        object.onmouseout=function(){
+            object.style.backgroundColor="#fff";     //原来的背景色为白色
+        }
+
+    }
+
+    function changeBgColor2(object){
+        var ID=object.id
+        object.onmouseover=function(){
+            object.style.backgroundColor="#FF3A45";
+        }
+        object.onmouseout=function(){
+            object.style.backgroundColor="#fff";     //原来的背景色为白色
+        }
+        object.onclick=function (){
+            location.href="/toUserInformation?UserName="+ID+"&GroupName={{.GroupName}}"
+        }
+    }
+    function changeBgColor3(object){
+        var ID=object.id
+        object.onmouseover=function(){
+            object.style.backgroundColor="#ECF5FF";
+        }
+        object.onmouseout=function(){
+            object.style.backgroundColor="#fff";     //原来的背景色为白色
+        }
+        object.onclick=function (){
+            location.href="/toUserInformation?UserName="+ID+"&GroupName={{.GroupName}}"
+        }
+
+    }
+</script>
+</html>
